@@ -1,0 +1,591 @@
+
+> web_dashboard@0.0.0 lint
+> oxlint
+
+
+  ! react(only-export-components): Fast refresh only works when a file only exports components. Move your React context(s) to a separate file.
+    ,-[src/features/auth/hooks/AuthProvider.tsx:15:14]
+ 14 | 
+ 15 | export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+    :              ^^^^^^^^^^^
+ 16 | 
+    `----
+
+  x react-hooks(rules-of-hooks): React Hook "useTranslation" is called in function "mergeTranslations" that is neither a React function component nor a custom React Hook function. React component names must start with an uppercase letter. React Hook names must start with the word "use".
+     ,-[src/features/activities/forms/ActivityFormDialog.tsx:135:21]
+ 133 |   // Simple helper to avoid hook issues with i18n
+ 134 |   function mergeTranslations() {
+     :            ^^^^^^^^|^^^^^^^^
+     :                    `-- Outer function
+ 135 |       const { t } = useTranslation();
+     :                     ^^^^^^^|^^^^^^
+     :                            `-- Hook is called here
+ 136 |       return { t };
+     `----
+
+  ! react-hooks(exhaustive-deps): React Hook useMemo has missing dependencies: 'handleActivate', and 'handleSuspend'
+     ,-[src/features/people/pages/ProfilesPage.tsx:119:6]
+ 102 |               label={t('people.suspend', 'Suspend')}
+ 103 |               onClick={() => handleSuspend(params.row.id)}
+     :                              ^^^^^^^^^^^^^
+ 104 |             />
+ 105 |           );
+ 106 |         } else {
+ 107 |           actions.push(
+ 108 |             <GridActionsCellItem
+ 109 |               icon={<ActivateIcon />}
+ 110 |               label={t('people.activate', 'Activate')}
+ 111 |               onClick={() => handleActivate(params.row.id)}
+     :                              ^^^^^^^^^^^^^^
+ 112 |             />
+ 113 |           );
+ 114 |         }
+ 115 |         
+ 116 |         return actions;
+ 117 |       },
+ 118 |     },
+ 119 |   ], [t]);
+     :      ^^^
+ 120 | 
+     `----
+  help: Either include it or remove the dependency array.
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/people/pages/ProfilesPage.tsx:91:12]
+ 90 |         const actions = [
+ 91 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 92 |             icon={<EditIcon />}
+    `----
+
+  ! react-hooks(exhaustive-deps): React Hook useMemo has missing dependencies: 'handleDelete', and 'handleRestore'
+     ,-[src/features/people/pages/TeachersPage.tsx:105:6]
+  86 |               label={t('common.restore', 'Restore')}
+  87 |               onClick={() => handleRestore(params.row.id)}
+     :                              ^^^^^^^^^^^^^
+  88 |             />,
+  89 |           ];
+  90 |         }
+  91 |         return [
+  92 |           <GridActionsCellItem
+  93 |             icon={<EditIcon />}
+  94 |             label={t('common.edit', 'Edit')}
+  95 |             onClick={() => handleOpenForm(params.row)}
+  96 |           />,
+  97 |           <GridActionsCellItem
+  98 |             icon={<DeleteIcon />}
+  99 |             label={t('common.delete', 'Delete')}
+ 100 |             onClick={() => handleDelete(params.row.id)}
+     :                            ^^^^^^^^^^^^
+ 101 |           />,
+ 102 |         ];
+ 103 |       },
+ 104 |     },
+ 105 |   ], [t]);
+     :      ^^^
+ 106 | 
+     `----
+  help: Either include it or remove the dependency array.
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/people/pages/TeachersPage.tsx:84:14]
+ 83 |           return [
+ 84 |             <GridActionsCellItem
+    :              ^^^^^^^^^^^^^^^^^^^
+ 85 |               icon={<RestoreIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/people/pages/TeachersPage.tsx:92:12]
+ 91 |         return [
+ 92 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 93 |             icon={<EditIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/people/pages/TeachersPage.tsx:97:12]
+ 96 |           />,
+ 97 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 98 |             icon={<DeleteIcon />}
+    `----
+
+  ! react-hooks(exhaustive-deps): React Hook useMemo has missing dependencies: 'handleDelete', and 'handleRestore'
+     ,-[src/features/academic/pages/ClassesPage.tsx:104:6]
+  85 |               label={t('common.restore', 'Restore')}
+  86 |               onClick={() => handleRestore(params.row.id)}
+     :                              ^^^^^^^^^^^^^
+  87 |             />,
+  88 |           ];
+  89 |         }
+  90 |         return [
+  91 |           <GridActionsCellItem
+  92 |             icon={<EditIcon />}
+  93 |             label={t('common.edit', 'Edit')}
+  94 |             onClick={() => handleOpenForm(params.row)}
+  95 |           />,
+  96 |           <GridActionsCellItem
+  97 |             icon={<DeleteIcon />}
+  98 |             label={t('common.delete', 'Delete')}
+  99 |             onClick={() => handleDelete(params.row.id)}
+     :                            ^^^^^^^^^^^^
+ 100 |           />,
+ 101 |         ];
+ 102 |       },
+ 103 |     },
+ 104 |   ], [t]);
+     :      ^^^
+ 105 | 
+     `----
+  help: Either include it or remove the dependency array.
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/ClassesPage.tsx:83:14]
+ 82 |           return [
+ 83 |             <GridActionsCellItem
+    :              ^^^^^^^^^^^^^^^^^^^
+ 84 |               icon={<RestoreIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/ClassesPage.tsx:91:12]
+ 90 |         return [
+ 91 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 92 |             icon={<EditIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/ClassesPage.tsx:96:12]
+ 95 |           />,
+ 96 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 97 |             icon={<DeleteIcon />}
+    `----
+
+  ! react-hooks(exhaustive-deps): React Hook useMemo has missing dependencies: 'handleDelete', and 'handleRestore'
+     ,-[src/features/people/pages/ParentsPage.tsx:122:6]
+  98 |               label={t('common.restore', 'Restore')}
+  99 |               onClick={() => handleRestore(params.row.id)}
+     :                              ^^^^^^^^^^^^^
+ 100 |             />,
+ 101 |           ];
+ 102 |         }
+ 103 |         return [
+ 104 |           <GridActionsCellItem
+ 105 |             icon={<GroupIcon />}
+ 106 |             label={t('people.manageChildren', 'Manage Children')}
+ 107 |             onClick={() => handleOpenLinks(params.row)}
+ 108 |           />,
+ 109 |           <GridActionsCellItem
+ 110 |             icon={<EditIcon />}
+ 111 |             label={t('common.edit', 'Edit')}
+ 112 |             onClick={() => handleOpenForm(params.row)}
+ 113 |           />,
+ 114 |           <GridActionsCellItem
+ 115 |             icon={<DeleteIcon />}
+ 116 |             label={t('common.delete', 'Delete')}
+ 117 |             onClick={() => handleDelete(params.row.id)}
+     :                            ^^^^^^^^^^^^
+ 118 |           />,
+ 119 |         ];
+ 120 |       },
+ 121 |     },
+ 122 |   ], [t]);
+     :      ^^^
+ 123 | 
+     `----
+  help: Either include it or remove the dependency array.
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/people/pages/ParentsPage.tsx:96:14]
+ 95 |           return [
+ 96 |             <GridActionsCellItem
+    :              ^^^^^^^^^^^^^^^^^^^
+ 97 |               icon={<RestoreIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+     ,-[src/features/people/pages/ParentsPage.tsx:104:12]
+ 103 |         return [
+ 104 |           <GridActionsCellItem
+     :            ^^^^^^^^^^^^^^^^^^^
+ 105 |             icon={<GroupIcon />}
+     `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+     ,-[src/features/people/pages/ParentsPage.tsx:109:12]
+ 108 |           />,
+ 109 |           <GridActionsCellItem
+     :            ^^^^^^^^^^^^^^^^^^^
+ 110 |             icon={<EditIcon />}
+     `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+     ,-[src/features/people/pages/ParentsPage.tsx:114:12]
+ 113 |           />,
+ 114 |           <GridActionsCellItem
+     :            ^^^^^^^^^^^^^^^^^^^
+ 115 |             icon={<DeleteIcon />}
+     `----
+
+  ! react-hooks(exhaustive-deps): React Hook useMemo has missing dependencies: 'handleDelete', and 'handleRestore'
+     ,-[src/features/academic/pages/DepartmentsPage.tsx:107:6]
+  88 |               label={t('common.restore', 'Restore')}
+  89 |               onClick={() => handleRestore(params.row.id)}
+     :                              ^^^^^^^^^^^^^
+  90 |             />,
+  91 |           ];
+  92 |         }
+  93 |         return [
+  94 |           <GridActionsCellItem
+  95 |             icon={<EditIcon />}
+  96 |             label={t('common.edit', 'Edit')}
+  97 |             onClick={() => handleOpenForm(params.row)}
+  98 |           />,
+  99 |           <GridActionsCellItem
+ 100 |             icon={<DeleteIcon />}
+ 101 |             label={t('common.delete', 'Delete')}
+ 102 |             onClick={() => handleDelete(params.row.id)}
+     :                            ^^^^^^^^^^^^
+ 103 |           />,
+ 104 |         ];
+ 105 |       },
+ 106 |     },
+ 107 |   ], [t]);
+     :      ^^^
+ 108 | 
+     `----
+  help: Either include it or remove the dependency array.
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/DepartmentsPage.tsx:86:14]
+ 85 |           return [
+ 86 |             <GridActionsCellItem
+    :              ^^^^^^^^^^^^^^^^^^^
+ 87 |               icon={<RestoreIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/DepartmentsPage.tsx:94:12]
+ 93 |         return [
+ 94 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 95 |             icon={<EditIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+     ,-[src/features/academic/pages/DepartmentsPage.tsx:99:12]
+  98 |           />,
+  99 |           <GridActionsCellItem
+     :            ^^^^^^^^^^^^^^^^^^^
+ 100 |             icon={<DeleteIcon />}
+     `----
+
+  ! react-hooks(exhaustive-deps): React Hook useMemo has missing dependencies: 'handleDelete', and 'handleRestore'
+     ,-[src/features/people/pages/StudentsPage.tsx:106:6]
+  87 |               label={t('common.restore', 'Restore')}
+  88 |               onClick={() => handleRestore(params.row.id)}
+     :                              ^^^^^^^^^^^^^
+  89 |             />,
+  90 |           ];
+  91 |         }
+  92 |         return [
+  93 |           <GridActionsCellItem
+  94 |             icon={<EditIcon />}
+  95 |             label={t('common.edit', 'Edit')}
+  96 |             onClick={() => handleOpenForm(params.row)}
+  97 |           />,
+  98 |           <GridActionsCellItem
+  99 |             icon={<DeleteIcon />}
+ 100 |             label={t('common.delete', 'Delete')}
+ 101 |             onClick={() => handleDelete(params.row.id)}
+     :                            ^^^^^^^^^^^^
+ 102 |           />,
+ 103 |         ];
+ 104 |       },
+ 105 |     },
+ 106 |   ], [t]);
+     :      ^^^
+ 107 | 
+     `----
+  help: Either include it or remove the dependency array.
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/people/pages/StudentsPage.tsx:85:14]
+ 84 |           return [
+ 85 |             <GridActionsCellItem
+    :              ^^^^^^^^^^^^^^^^^^^
+ 86 |               icon={<RestoreIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/people/pages/StudentsPage.tsx:93:12]
+ 92 |         return [
+ 93 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 94 |             icon={<EditIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/people/pages/StudentsPage.tsx:98:12]
+ 97 |           />,
+ 98 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 99 |             icon={<DeleteIcon />}
+    `----
+
+  ! react-hooks(exhaustive-deps): React Hook useMemo has a missing dependency: 'handleDelete'
+    ,-[src/features/academic/pages/HolidaysPage.tsx:85:6]
+ 79 |             label={t('common.delete', 'Delete')}
+ 80 |             onClick={() => handleDelete(params.row.id)}
+    :                            ^^^^^^|^^^^^
+    :                                  `-- useMemo uses `handleDelete` here
+ 81 |           />,
+ 82 |         ];
+ 83 |       },
+ 84 |     },
+ 85 |   ], [t]);
+    :      ^^^
+ 86 | 
+    `----
+  help: Either include it or remove the dependency array.
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/HolidaysPage.tsx:72:12]
+ 71 |         return [
+ 72 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 73 |             icon={<EditIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/HolidaysPage.tsx:77:12]
+ 76 |           />,
+ 77 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 78 |             icon={<DeleteIcon />}
+    `----
+
+  ! react-hooks(exhaustive-deps): React Hook useMemo has missing dependencies: 'handleRestore', and 'handleDelete'
+     ,-[src/features/academic/pages/InstitutionsPage.tsx:106:6]
+  87 |               label={t('common.restore', 'Restore')}
+  88 |               onClick={() => handleRestore(params.row.id)}
+     :                              ^^^^^^^^^^^^^
+  89 |             />,
+  90 |           ];
+  91 |         }
+  92 |         return [
+  93 |           <GridActionsCellItem
+  94 |             icon={<EditIcon />}
+  95 |             label={t('common.edit', 'Edit')}
+  96 |             onClick={() => handleOpenForm(params.row)}
+  97 |           />,
+  98 |           <GridActionsCellItem
+  99 |             icon={<DeleteIcon />}
+ 100 |             label={t('common.delete', 'Delete')}
+ 101 |             onClick={() => handleDelete(params.row.id)}
+     :                            ^^^^^^^^^^^^
+ 102 |           />,
+ 103 |         ];
+ 104 |       },
+ 105 |     },
+ 106 |   ], [t]);
+     :      ^^^
+ 107 | 
+     `----
+  help: Either include it or remove the dependency array.
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/InstitutionsPage.tsx:85:14]
+ 84 |           return [
+ 85 |             <GridActionsCellItem
+    :              ^^^^^^^^^^^^^^^^^^^
+ 86 |               icon={<RestoreIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/InstitutionsPage.tsx:93:12]
+ 92 |         return [
+ 93 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 94 |             icon={<EditIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/InstitutionsPage.tsx:98:12]
+ 97 |           />,
+ 98 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 99 |             icon={<DeleteIcon />}
+    `----
+
+  ! react-hooks(exhaustive-deps): React Hook useMemo has missing dependencies: 'handleDelete', and 'handleRestore'
+     ,-[src/features/academic/pages/TermsPage.tsx:117:6]
+  98 |               label={t('common.restore', 'Restore')}
+  99 |               onClick={() => handleRestore(params.row.id)}
+     :                              ^^^^^^^^^^^^^
+ 100 |             />,
+ 101 |           ];
+ 102 |         }
+ 103 |         return [
+ 104 |           <GridActionsCellItem
+ 105 |             icon={<EditIcon />}
+ 106 |             label={t('common.edit', 'Edit')}
+ 107 |             onClick={() => handleOpenForm(params.row)}
+ 108 |           />,
+ 109 |           <GridActionsCellItem
+ 110 |             icon={<DeleteIcon />}
+ 111 |             label={t('common.delete', 'Delete')}
+ 112 |             onClick={() => handleDelete(params.row.id)}
+     :                            ^^^^^^^^^^^^
+ 113 |           />,
+ 114 |         ];
+ 115 |       },
+ 116 |     },
+ 117 |   ], [t]);
+     :      ^^^
+ 118 | 
+     `----
+  help: Either include it or remove the dependency array.
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/TermsPage.tsx:96:14]
+ 95 |           return [
+ 96 |             <GridActionsCellItem
+    :              ^^^^^^^^^^^^^^^^^^^
+ 97 |               icon={<RestoreIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+     ,-[src/features/academic/pages/TermsPage.tsx:104:12]
+ 103 |         return [
+ 104 |           <GridActionsCellItem
+     :            ^^^^^^^^^^^^^^^^^^^
+ 105 |             icon={<EditIcon />}
+     `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+     ,-[src/features/academic/pages/TermsPage.tsx:109:12]
+ 108 |           />,
+ 109 |           <GridActionsCellItem
+     :            ^^^^^^^^^^^^^^^^^^^
+ 110 |             icon={<DeleteIcon />}
+     `----
+
+  ! react(only-export-components): Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components.
+    ,-[src/theme/ThemeContextProvider.tsx:64:14]
+ 63 | 
+ 64 | export const useThemeContext = () => useContext(ThemeContext);
+    :              ^^^^^^^^^^^^^^^
+    `----
+
+  ! react-hooks(exhaustive-deps): React Hook useMemo has missing dependencies: 'handleDelete', and 'handleRestore'
+     ,-[src/features/academic/pages/CoursesPage.tsx:105:6]
+  86 |               label={t('common.restore', 'Restore')}
+  87 |               onClick={() => handleRestore(params.row.id)}
+     :                              ^^^^^^^^^^^^^
+  88 |             />,
+  89 |           ];
+  90 |         }
+  91 |         return [
+  92 |           <GridActionsCellItem
+  93 |             icon={<EditIcon />}
+  94 |             label={t('common.edit', 'Edit')}
+  95 |             onClick={() => handleOpenForm(params.row)}
+  96 |           />,
+  97 |           <GridActionsCellItem
+  98 |             icon={<DeleteIcon />}
+  99 |             label={t('common.delete', 'Delete')}
+ 100 |             onClick={() => handleDelete(params.row.id)}
+     :                            ^^^^^^^^^^^^
+ 101 |           />,
+ 102 |         ];
+ 103 |       },
+ 104 |     },
+ 105 |   ], [t]);
+     :      ^^^
+ 106 | 
+     `----
+  help: Either include it or remove the dependency array.
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/CoursesPage.tsx:84:14]
+ 83 |           return [
+ 84 |             <GridActionsCellItem
+    :              ^^^^^^^^^^^^^^^^^^^
+ 85 |               icon={<RestoreIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/CoursesPage.tsx:92:12]
+ 91 |         return [
+ 92 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 93 |             icon={<EditIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/CoursesPage.tsx:97:12]
+ 96 |           />,
+ 97 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 98 |             icon={<DeleteIcon />}
+    `----
+
+  ! react-hooks(exhaustive-deps): React Hook useMemo has missing dependencies: 'handleDelete', and 'handleRestore'
+     ,-[src/features/academic/pages/ProgramsPage.tsx:104:6]
+  85 |               label={t('common.restore', 'Restore')}
+  86 |               onClick={() => handleRestore(params.row.id)}
+     :                              ^^^^^^^^^^^^^
+  87 |             />,
+  88 |           ];
+  89 |         }
+  90 |         return [
+  91 |           <GridActionsCellItem
+  92 |             icon={<EditIcon />}
+  93 |             label={t('common.edit', 'Edit')}
+  94 |             onClick={() => handleOpenForm(params.row)}
+  95 |           />,
+  96 |           <GridActionsCellItem
+  97 |             icon={<DeleteIcon />}
+  98 |             label={t('common.delete', 'Delete')}
+  99 |             onClick={() => handleDelete(params.row.id)}
+     :                            ^^^^^^^^^^^^
+ 100 |           />,
+ 101 |         ];
+ 102 |       },
+ 103 |     },
+ 104 |   ], [t]);
+     :      ^^^
+ 105 | 
+     `----
+  help: Either include it or remove the dependency array.
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/ProgramsPage.tsx:83:14]
+ 82 |           return [
+ 83 |             <GridActionsCellItem
+    :              ^^^^^^^^^^^^^^^^^^^
+ 84 |               icon={<RestoreIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/ProgramsPage.tsx:91:12]
+ 90 |         return [
+ 91 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 92 |             icon={<EditIcon />}
+    `----
+
+  ! react(jsx-key): Missing "key" prop for element in array.
+    ,-[src/features/academic/pages/ProgramsPage.tsx:96:12]
+ 95 |           />,
+ 96 |           <GridActionsCellItem
+    :            ^^^^^^^^^^^^^^^^^^^
+ 97 |             icon={<DeleteIcon />}
+    `----
+
+Found 44 warnings and 1 error.
+Finished in 28ms on 111 files with 104 rules using 4 threads.

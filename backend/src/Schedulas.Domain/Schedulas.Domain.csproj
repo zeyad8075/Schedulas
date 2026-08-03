@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Schedulas.Domain</RootNamespace>
+  </PropertyGroup>
+
+  <!-- Domain has ZERO external package references by design (Constitution §7 / Architecture §3.1).
+       It depends only on the base class library. -->
+
+</Project>

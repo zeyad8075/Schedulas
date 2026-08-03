@@ -1,0 +1,80 @@
+name: schedulas
+description: "Schedulas — منصة إدارة الأنشطة الأكاديمية"
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State management — chosen for compile-time-safe DI and simple async
+  # state handling, consistent with the backend's CQRS separation of
+  # concerns (providers ~ queries/commands, notifiers ~ handlers).
+  flutter_riverpod: ^2.5.1
+
+  # Supabase Auth: the ONLY identity provider (Constitution — never ASP.NET
+  # Identity, and on the client side, never a hand-rolled auth flow either).
+  # Flutter talks to Supabase directly for login/register/refresh, then
+  # attaches the resulting JWT to every call against the Schedulas API.
+
+  # HTTP client for the Schedulas API itself (never for Supabase Auth
+  # calls, which go through supabase_flutter above).
+  dio: ^5.5.0+1
+
+  # Declarative routing with auth-state-aware redirects.
+  go_router: ^14.2.7
+
+  # Arabic (and future) localization.
+  intl: ^0.20.2
+
+  # Secure local storage for the refresh token between app launches.
+  flutter_secure_storage: ^9.2.2
+
+  # Icons — Material Symbols for cross-platform consistency with the
+  # React dashboard (Constitution §23).
+  material_symbols_icons: ^4.2758.0
+  fpdart: ^1.2.0
+  flutter_form_builder: ^10.3.0+2
+  form_builder_validators: ^11.3.0
+  fl_chart: ^1.2.0
+  dio_cache_interceptor: ^3.5.1
+  dio_cache_interceptor_hive_store: ^4.0.0
+  connectivity_plus: ^7.3.1
+  path_provider: ^2.1.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  mocktail: ^1.0.5
+  flutter_launcher_icons: ^0.14.4
+
+flutter:
+  uses-material-design: true
+  generate: true # enables ARB-based localization codegen (l10n.yaml)
+
+  assets:
+    - assets/images/
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "../Schedulas_Icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "../Schedulas_Icon.png"
+    background_color: "#ffffff"
+    theme_color: "#ffffff"
+  windows:
+    generate: true
+    image_path: "../Schedulas_Icon.png"
+    icon_size: 48 # min:48, max:256, default 48
+  macos:
+    generate: true
+    image_path: "../Schedulas_Icon.png"

@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: schedulas-db
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
+      POSTGRES_DB: ${DB_NAME:-SchedulasDb}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - schedulas-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: schedulas-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=${DB_NAME:-SchedulasDb};Username=${DB_USER:-postgres};Password=${DB_PASSWORD:-postgres}
+      - Jwt__Key=${JWT_SECRET_KEY:-YourSuperSecretDevelopmentKeyThatIsVeryLongAndSecure}
+      - Jwt__Issuer=${JWT_ISSUER:-SchedulasAPI}
+      - Jwt__Audience=${JWT_AUDIENCE:-SchedulasClients}
+    ports:
+      - "8080:8080"
+    networks:
+      - schedulas-network
+    restart: unless-stopped
+
+  web_dashboard:
+    build:
+      context: .
+      dockerfile: web_dashboard/Dockerfile
+    container_name: schedulas-web
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - schedulas-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  schedulas-network:
+    driver: bridge
