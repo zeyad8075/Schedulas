@@ -9,6 +9,8 @@ using Schedulas.Application;
 using Schedulas.Infrastructure;
 using Schedulas.Infrastructure.Identity;
 using Serilog;
+using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
