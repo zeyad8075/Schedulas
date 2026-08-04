@@ -141,7 +141,7 @@ builder.Services.AddHealthChecks()
     .AddNpgSql(
         dbConnectionString,
         name: "postgresql",
-        failureStatus: Microsoft.Extensions.Diagnostics.HealthChecks.HealthStatus.Unhealthy,
+        failureStatus: HealthStatus.Unhealthy,
         tags: ["db", "ready"]);
 
 // ==================== 9. Background Job infrastructure (Quartz) ====================
@@ -153,9 +153,25 @@ builder.Services.AddHealthChecks()
 builder.Services.AddQuartz();
 builder.Services.AddQuartzHostedService(options => options.WaitForJobsToComplete = true);
 
+// ==================== 10. Production Security (Forwarded Headers & Compression) ====================
+builder.Services.Configure<ForwardedHeadersOptions>(options =>
+{
+    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+    // Render acts as a proxy, so we clear these to trust Render's forwarded headers
+    options.KnownNetworks.Clear();
+    options.KnownProxies.Clear();
+});
+
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
+
 var app = builder.Build();
 
 // ==================== Middleware pipeline ====================
+app.UseForwardedHeaders();
+app.UseResponseCompression();
 app.UseGlobalExceptionHandling(); // outermost: catches everything below
 
 if (app.Environment.IsDevelopment())

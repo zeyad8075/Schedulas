@@ -1,7 +1,10 @@
 import axios, { type InternalAxiosRequestConfig } from 'axios';
 import { authStorage } from '../auth/authStorage';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
+const envUrl = import.meta.env.VITE_API_URL;
+const BASE_URL = envUrl 
+  ? (envUrl.endsWith('/api/v1') ? envUrl : `${envUrl.replace(/\/$/, '')}/api/v1`)
+  : 'http://localhost:3000/api/v1';
 
 export const apiClient = axios.create({
   baseURL: BASE_URL,

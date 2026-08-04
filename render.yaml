@@ -1,0 +1,53 @@
+services:
+  # ----------------------------------------------------
+  # 1. Backend API (Docker)
+  # ----------------------------------------------------
+  - type: web
+    name: schedulas-api
+    env: docker
+    dockerContext: .
+    dockerfilePath: ./backend/Dockerfile
+    autoDeploy: false
+    healthCheckPath: /health/ready
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      # Render dynamically assigns PORT and maps it to external traffic
+      - key: ASPNETCORE_HTTP_PORTS
+        value: 8080
+      - key: PORT
+        value: 8080
+      # Required Supabase Variables (User will provide these in the Render Dashboard)
+      - key: ConnectionStrings__DefaultConnection
+        sync: false
+      - key: Supabase__Url
+        sync: false
+      - key: Supabase__AnonKey
+        sync: false
+      # Allowed Origins for CORS
+      - key: Cors__AllowedOrigins__0
+        fromService:
+          type: web
+          name: schedulas-web
+          envVarKey: RENDER_EXTERNAL_URL
+
+  # ----------------------------------------------------
+  # 2. React Web Dashboard (Static Site)
+  # ----------------------------------------------------
+  - type: web
+    name: schedulas-web
+    env: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    rootDir: web_dashboard
+    autoDeploy: false
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: schedulas-api
+          envVarKey: RENDER_EXTERNAL_URL
