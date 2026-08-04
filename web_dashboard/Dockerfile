@@ -16,11 +16,10 @@ RUN npm run build
 FROM nginx:alpine AS final
 
 # Copy Nginx configuration
-COPY web_dashboard/nginx.conf /etc/nginx/conf.d/default.conf
+COPY web_dashboard/nginx.conf /etc/nginx/templates/default.conf.template
 
 # Copy build artifacts to Nginx html folder
 COPY --from=build /app/dist /usr/share/nginx/html
 
-EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]

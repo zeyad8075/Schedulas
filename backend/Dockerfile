@@ -30,8 +30,6 @@ COPY --from=publish /app/publish .
 
 # Configure environment variables
 ENV ASPNETCORE_ENVIRONMENT=Production
-ENV ASPNETCORE_URLS=http://+:8080
 
-EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "Schedulas.API.dll"]
