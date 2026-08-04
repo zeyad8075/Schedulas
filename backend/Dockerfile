@@ -10,7 +10,7 @@ COPY ["backend/src/Schedulas.Domain/Schedulas.Domain.csproj", "src/Schedulas.Dom
 COPY ["backend/src/Schedulas.Infrastructure/Schedulas.Infrastructure.csproj", "src/Schedulas.Infrastructure/"]
 
 # Restore dependencies
-RUN dotnet restore
+RUN dotnet restore "src/Schedulas.API/Schedulas.API.csproj"
 
 # Copy the rest of the source code
 COPY backend/ .
