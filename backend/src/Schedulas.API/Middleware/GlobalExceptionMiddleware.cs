@@ -2,6 +2,7 @@ using System.Net;
 using FluentValidation;
 using Schedulas.API.Common;
 using Schedulas.Domain.Exceptions;
+using Schedulas.Infrastructure.Identity;
 
 namespace Schedulas.API.Middleware;
 
@@ -65,6 +66,10 @@ public sealed class GlobalExceptionMiddleware
         UnauthorizedAccessException unauthorizedEx => (
             HttpStatusCode.Forbidden,
             ApiResponse<object>.Fail(ArabicMessages.Resolve(unauthorizedEx.Message))),
+
+        SupabaseAuthException supabaseEx => (
+            HttpStatusCode.BadRequest,
+            ApiResponse<object>.Fail(supabaseEx.Message)),
 
         _ => (
             HttpStatusCode.InternalServerError,
