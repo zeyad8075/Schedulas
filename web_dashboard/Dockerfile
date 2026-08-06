@@ -10,6 +10,8 @@ RUN npm ci
 COPY web_dashboard/ .
 
 # Build the React application using Vite
+ARG VITE_API_URL
+ENV VITE_API_URL=$VITE_API_URL
 RUN npm run build
 
 # Final Production Image using Nginx
