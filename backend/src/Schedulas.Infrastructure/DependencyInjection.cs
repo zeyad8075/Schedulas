@@ -33,6 +33,13 @@ public static class DependencyInjection
                     "No database connection string configured. Set ConnectionStrings:SchedulasDb " +
                     "or the SCHEDULAS_DB_CONNECTION environment variable.");
 
+            if (connectionString.StartsWith("postgres://") || connectionString.StartsWith("postgresql://"))
+            {
+                var uri = new Uri(connectionString);
+                var userInfo = uri.UserInfo.Split(':');
+                connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.LocalPath.TrimStart('/')};Username={userInfo[0]};Password={userInfo[1]};Ssl Mode=Require;Trust Server Certificate=true;";
+            }
+
             options.UseNpgsql(connectionString);
             options.AddInterceptors(sp.GetRequiredService<AuditableSaveChangesInterceptor>());
         });
