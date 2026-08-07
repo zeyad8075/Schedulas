@@ -126,6 +126,10 @@ class ApiClient {
     final responseData = e.response?.data;
     final statusCode = e.response?.statusCode;
 
+    print("DioException: [${statusCode}] ${e.message}");
+    print("ResponseData: $responseData");
+    print("RequestPath: ${e.requestOptions.path}");
+
     if (responseData is Map<String, dynamic> &&
         responseData.containsKey('message')) {
       final message = responseData['message'] as String? ??

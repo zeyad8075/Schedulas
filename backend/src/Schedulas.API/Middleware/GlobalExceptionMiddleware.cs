@@ -73,7 +73,7 @@ public sealed class GlobalExceptionMiddleware
 
         _ => (
             HttpStatusCode.InternalServerError,
-            ApiResponse<object>.Fail(ArabicMessages.Resolve("UNEXPECTED_ERROR")))
+            ApiResponse<object>.Fail($"DEBUG_ERROR: {exception.Message} \n {exception.StackTrace}"))
     };
 }
 
