@@ -47,11 +47,11 @@ class AuthNotifier extends StateNotifier<AuthState> {
       // If getting profile failed (e.g. 401), attempt refresh
       final refreshResult = await _authRepository.refresh();
       refreshResult.fold((f) {
-        state = AuthStateUnauthenticated();
+        state = AuthStateFailure(f);
       }, (_) async {
         final profileResultRetry = await _authRepository.me();
         profileResultRetry.fold((f) {
-          state = AuthStateUnauthenticated();
+          state = AuthStateFailure(f);
         }, (profile) {
           state = AuthStateAuthenticated(profile);
         });
