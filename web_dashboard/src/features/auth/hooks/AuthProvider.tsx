@@ -29,7 +29,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (decoded.exp && decoded.exp > currentTime) {
           const userMeta = (decoded as any).user_metadata || {};
           const rawRole = userMeta.role;
-          const parsedRole = typeof rawRole === 'string' ? parseInt(rawRole, 10) : (rawRole ?? UserRole.Student);
+          
+          let parsedRole: number = UserRole.Student;
+          if (typeof rawRole === 'string') {
+            if (rawRole === 'PlatformAdmin') parsedRole = UserRole.PlatformAdmin;
+            else if (rawRole === 'InstitutionAdmin') parsedRole = UserRole.Admin;
+            else if (rawRole === 'Teacher') parsedRole = UserRole.Teacher;
+            else if (rawRole === 'Student') parsedRole = UserRole.Student;
+            else {
+              const parsedInt = parseInt(rawRole, 10);
+              if (!isNaN(parsedInt)) parsedRole = parsedInt;
+            }
+          } else if (typeof rawRole === 'number') {
+            parsedRole = rawRole;
+          }
 
           setUser({
             id: decoded.sub,
