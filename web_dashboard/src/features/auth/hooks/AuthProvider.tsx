@@ -27,11 +27,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const currentTime = Date.now() / 1000;
         
         if (decoded.exp && decoded.exp > currentTime) {
+          const userMeta = (decoded as any).user_metadata || {};
+          const rawRole = userMeta.role;
+          const parsedRole = typeof rawRole === 'string' ? parseInt(rawRole, 10) : (rawRole ?? UserRole.Student);
+
           setUser({
             id: decoded.sub,
             email: decoded.email || '',
-            role: (typeof decoded.role === 'string' ? parseInt(decoded.role, 10) : decoded.role) as UserRole,
-            institutionId: decoded.institutionId,
+            role: parsedRole as UserRole,
+            institutionId: userMeta.institutionId,
           });
         } else {
           authStorage.clear();
